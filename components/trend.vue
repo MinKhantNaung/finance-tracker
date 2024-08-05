@@ -4,7 +4,7 @@
 
         <div class="text-2xl font-extrabold text-black dark:text-white mb-2">
             <USkeleton v-if="loading" class="h-8 w-full" />
-            <div v-else>{{ amount }}</div>
+            <div v-else>{{ currency }}</div>
         </div>
 
         <div>
@@ -42,6 +42,8 @@ const percentageTrend = computed(() => {
 
     return `${Math.ceil(ratio)}%`
 })
+
+const { currency } = useCurrency(props.amount)
 
 </script>
 
