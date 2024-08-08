@@ -17,10 +17,7 @@
         </section>
 
         <section>
-            <Transaction />
-            <Transaction />
-            <Transaction />
-            <Transaction />
+            <Transaction v-for="transaction in transactions" :key="transaction.id" :transaction="transaction" />
         </section>
     </div>
 </template>
@@ -29,4 +26,14 @@
 import { transactionViewOptions } from '~/constants';
 
 const viewSelected = ref(transactionViewOptions[1])
+
+const supabase = useSupabaseClient()
+
+const transactions = ref([])
+const { data, error } = await supabase
+    .from('transactions')
+    .select()
+
+transactions.value = data
+
 </script>
