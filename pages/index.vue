@@ -30,10 +30,16 @@ const viewSelected = ref(transactionViewOptions[1])
 const supabase = useSupabaseClient()
 
 const transactions = ref([])
-const { data, error } = await supabase
-    .from('transactions')
-    .select()
+const { data, pending } = await useAsyncData('transactions', async () => {
+    const { data, error } = await supabase
+        .from('transactions')
+        .select()
 
-transactions.value = data
+    if (error) return []
+    
+    return data;
+})
+
+transactions.value = data.value
 
 </script>
